@@ -144,6 +144,7 @@ int main(int argc, char ** argv)
     test_buff[0] = 0x00;
     sx1250_read_command(0, GET_STATUS, test_buff, 1);
     printf("Radio0: get_status: 0x%02X\n", test_buff[0]);
+    test_buff[0] = 0x00;
     sx1250_read_command(1, GET_STATUS, test_buff, 1);
     printf("Radio1: get_status: 0x%02X\n", test_buff[0]);
 

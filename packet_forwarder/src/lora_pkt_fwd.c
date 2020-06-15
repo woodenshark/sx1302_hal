@@ -1604,7 +1604,7 @@ int main(int argc, char ** argv)
             printf("### Concentrator temperature: %.0f C ###\n", temperature);
         }
         printf("##### END #####\n");
-
+	fflush(stdout);
         /* generate a JSON report (will be sent to server by upstream thread) */
         pthread_mutex_lock(&mx_stat_rep);
         if (((gps_enabled == true) && (coord_ok == true)) || (gps_fake_enable == true)) {
@@ -1614,6 +1614,7 @@ int main(int argc, char ** argv)
         }
         report_ready = true;
         pthread_mutex_unlock(&mx_stat_rep);
+	fflush(stdout);
     }
 
     /* wait for upstream thread to finish (1 fetch cycle max) */
@@ -1851,7 +1852,7 @@ void thread_up(void) {
                 if (j == LGW_GPS_SUCCESS) {
                     /* split the UNIX timestamp to its calendar components */
                     x = gmtime(&(pkt_utc_time.tv_sec));
-                    j = snprintf((char *)(buff_up + buff_index), TX_BUFF_SIZE-buff_index, ",\"time\":\"%04i-%02i-%02iT%02i:%02i:%02i.%06liZ\"", (x->tm_year)+1900, (x->tm_mon)+1, x->tm_mday, x->tm_hour, x->tm_min, x->tm_sec, (pkt_utc_time.tv_nsec)/1000); /* ISO 8601 format */
+                    j = snprintf((char *)(buff_up + buff_index), TX_BUFF_SIZE-buff_index, ",\"time\":\"%04i-%02i-%02iT%02i:%02i:%02i.%09liZ\"", (x->tm_year)+1900, (x->tm_mon)+1, x->tm_mday, x->tm_hour, x->tm_min, x->tm_sec, pkt_utc_time.tv_nsec); /* ISO 8601 format */
                     if (j > 0) {
                         buff_index += j;
                     } else {
