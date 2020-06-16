@@ -13,10 +13,6 @@
    dtoverlay=pps-gpio,gpiopin=3
    ``` 
 1. replace `/boot/overlays/i2c-gpio.dtbo` with this version https://drive.google.com/file/d/1-4vyUf83--nReBnNGhY_VZSHckXOEjo2/view?usp=sharing because of bug in new Raspberry OS images (https://github.com/raspberrypi/firmware/issues/1401)
-1. add i2c-dev and spidev modules to `/etc/modules`
-   ```console
-   sudo sh -c "echo 'i2c-dev\nspidev\n' >> /etc/modules"
-   ```
 
 ## Power on, log in
 1. install needed packages
@@ -28,6 +24,14 @@
    ```console
    sudo raspi-config
    #5 Interfacing options -> P6 Serial -> No -> Yes
+   ```
+1. add i2c-dev and spidev modules to `/etc/modules`
+   ```console
+   sudo sh -c "echo 'i2c-dev\nspidev\n' >> /etc/modules"
+   ```
+1. reboot
+   ```console
+   sudo reboot
    ```
 1. install sx1302_hal
    ```console
