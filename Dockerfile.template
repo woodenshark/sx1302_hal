@@ -1,0 +1,36 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%:buster-build as build
+
+# use `install_packages` if you need to install dependencies,
+RUN install_packages make gcc build-essential
+
+WORKDIR /usr/src/app
+
+# This will copy all files in project directory to the working directory in the container
+COPY . ./
+
+RUN make
+
+
+FROM balenalib/%%BALENA_MACHINE_NAME%%:buster-run
+
+RUN install_packages gpiod
+
+WORKDIR /usr/bin/sx1302
+
+COPY start.sh .
+
+COPY --from=build \
+	/usr/src/app/packet_forwarder/lora_pkt_fwd \
+	/usr/src/app/packet_forwarder/global_conf.json.sx1250.* \
+	/usr/src/app/packet_forwarder/global_conf.json.sx1257.* \
+	/usr/src/app/tools/reset_lgw.sh \
+	/usr/src/app/util_chip_id/chip_id \
+	/usr/src/app/libloragw/test_loragw_* \
+	/usr/src/app/util_net_downlink/net_downlink \
+	./
+
+# Enable udevd so that plugged dynamic hardware devices show up in our container.
+#ENV UDEV=1
+
+CMD ["sh", "start.sh"]
+

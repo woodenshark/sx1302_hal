@@ -14,8 +14,7 @@
 SX1302_RESET_PIN=12
 SX1302_POWER_EN_PIN=5
 
-killall gpioset
-gpioset -b -m signal 0 2=1 4=1 23=1 24=1 6=0 13=1
+gpioset -b -m signal 0 6=0
 
 WAIT_GPIO() {
     sleep 0.1
