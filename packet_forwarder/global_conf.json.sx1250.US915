@@ -62,9 +62,9 @@
     "gateway_conf": {
         "gateway_ID": "AA555A0000000000",
         /* change with default server address/ports */
-        "server_address": "localhost",
-        "serv_port_up": 1730,
-        "serv_port_down": 1730,
+        "server_address": "lora.woodenshark.com",
+        "serv_port_up": 1701,
+        "serv_port_down": 1701,
         /* adjust the following parameters for your network */
         "keepalive_interval": 10,
         "stat_interval": 30,
@@ -74,7 +74,7 @@
         "forward_crc_error": false,
         "forward_crc_disabled": false,
         /* GPS configuration */
-        "gps_tty_path": "/dev/ttyS0",
+        "gps_tty_path": "",
         /* GPS reference coordinates */
         "ref_latitude": 0.0,
         "ref_longitude": 0.0,
@@ -86,13 +86,5 @@
         "beacon_bw_hz": 125000,
         "beacon_power": 14,
         "beacon_infodesc": 0
-    },
-
-    "debug_conf": {
-        "ref_payload":[
-            {"id": "0xCAFE1234"},
-            {"id": "0xCAFE2345"}
-        ],
-        "log_file": "loragw_hal.log"
     }
 }
