@@ -29,6 +29,8 @@ echo "Gateway ID is : 0x${gw_id}"
 
 sed -i "s_AA555A0000000000_${gw_id}_g" ${CONFIG_NAME_PREFIX}.${LORA_REGION}
 
+chmod +x "reset_lgw.sh"
+
 ./lora_pkt_fwd -c ${CONFIG_NAME_PREFIX}.${LORA_REGION}
 
 #balena-idle --interval 60 --message "Container idle for debug..."
